@@ -1,0 +1,61 @@
+package loginCase;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.Test;
+import java.io.File;
+import java.io.IOException;
+import java.lang.*;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class LoginTestCase 
+{
+	WebDriver driver;
+	
+	@BeforeTest
+	public void beforeTest()
+	{
+		WebDriverManager.chromedriver().setup();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*","ignore-certificate-errors");
+		driver = new ChromeDriver(options);
+	}
+	
+	
+	@Test(description = "valid Login Case", priority = 1)
+	public void ValidLogin() throws Exception
+	{
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		driver.manage().window().maximize();
+		
+		String usernamelog = "Admin";
+//		String passwordlog = "admin123";
+		driver.findElement(By.className("oxd-input oxd-input--active")).sendKeys(usernamelog);
+//		driver.findElement(By.name("password")).sendKeys(passwordlog);
+//		
+//		System.out.println("Sucessfully Send The Data");
+		
+		
+		Thread.sleep(5000);
+	}
+	
+	
+	@AfterTest()
+	public void afterTest()
+	{
+		//Thread.sleep(2000);
+		driver.quit();
+	}
+}
